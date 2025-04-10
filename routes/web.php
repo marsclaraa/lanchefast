@@ -10,16 +10,16 @@ use App\Livewire\Produto\ProdutoIndex;
 use App\Livewire\Produto\ProdutoShow;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('cliente')->group(function (){
+Route::prefix('clientes')->group(function (){
     Route::get('/index', Index::class)->name('clientes.index');
     Route::get('/create', Create::class)->name('clientes.create');
     Route::get('/{cliente}/show', Show::class)->name('clientes.show');
-    Route::get('/{cliente}/edit', Edit::class)->name('clientes.edit');
+    Route::get('/edit', Edit::class)->name('clientes.edit');
 });
 
-Route::prefix('produtos')->group(function () {
-    Route::get('/', ProdutoIndex::class)->name('produtos.index');
-    Route::get('/create', ProdutoCreate::class)->name('produtos.create');
-    Route::get('/{produto}', ProdutoShow::class)->name('produtos.show');
-    Route::get('/{produto}/edit', ProdutoEdit::class)->name('produtos.edit');
+Route::prefix('produto')->group(function () {
+    Route::get('/', ProdutoIndex::class)->name('produto.index');
+    Route::get('/create', ProdutoCreate::class)->name('produto.create');
+    Route::get('/{produto}', ProdutoShow::class)->name('produto.show');
+    Route::get('/{produto}/edit', ProdutoEdit::class)->name('produto.edit');
 });
