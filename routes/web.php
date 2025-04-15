@@ -14,8 +14,8 @@ Route::prefix('clientes')->group(function (){
     Route::get('/index', Index::class)->name('clientes.index');
     Route::get('/create', Create::class)->name('clientes.create');
     Route::get('/{cliente}/show', Show::class)->name('clientes.show');
-    Route::get('/edit', Edit::class)->name('clientes.edit');
-});
+    Route::get('/{cliente}/edit', Edit::class)->name('clientes.edit');
+});     
 
 Route::prefix('produto')->group(function () {
     Route::get('/', ProdutoIndex::class)->name('produto.index');

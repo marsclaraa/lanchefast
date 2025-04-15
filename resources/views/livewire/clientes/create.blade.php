@@ -1,64 +1,98 @@
-<div class="container">
-    <div class="header">
-        Vibe&Lanche
+<div class="flex items-center justify-center min-h-screen px-4 py-8 fundo">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full">
+
+        {{-- Imagem e texto da esquerda --}}
+        <div class="flex flex-col items-center justify-center text-center">
+            <img src="{{ asset('img/lanche.png') }}" alt="Burger" class="w-48 mb-6">
+            <h2 class="text-2xl text-[#a415a4]" style="font-family: 'Chewy', cursive;">
+                <strong>SEJA UM CLIENTE<br>VIBE & LANCHE</strong>
+            </h2>
+        </div>
+
+        {{-- Formulário de cadastro --}}
+        <div class="card rounded-2xl shadow-lg p-6 border border-black max-w-md w-full card">
+
+            {{-- Toasts de Erro --}}
+            @if ($errors->any())
+                <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show"
+                    class="fixed top-6 right-6 z-50 space-y-2">
+                    @foreach ($errors->all() as $error)
+                        <div class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg animate-fade-in">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form wire:submit.prevent="create" class="space-y-4">
+
+                <div>
+                    <label class="font-semibold">Nome:</label>
+                    <input type="text" wire:model.defer="nome"
+                        class="w-full border-2 rounded-full px-4 py-2 border-black focus:outline-none">
+                    @error('nome')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="font-semibold">Email:</label>
+                    <input type="email" wire:model.defer="email"
+                        class="w-full border-2 rounded-full px-4 py-2 border-black focus:outline-none">
+                    @error('email')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="font-semibold">CPF</label>
+                    <input type="text" wire:model.defer="cpf"
+                        class="w-full border-2 rounded-full px-4 py-2 border-black focus:outline-none">
+                    @error('cpf')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="font-semibold">Telefone:</label>
+                    <input type="text" wire:model.defer="telefone"
+                        class="w-full border-2 rounded-full px-4 py-2 border-black focus:outline-none">
+                    @error('telefone')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="font-semibold">Endereço:</label>
+                    <input type="text" wire:model.defer="endereco"
+                        class="w-full border-2 rounded-full px-4 py-2 border-black focus:outline-none">
+                    @error('endereco')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="font-semibold">Criar Senha:</label>
+                    <input type="password" wire:model.defer="password"
+                        class="w-full border-2 rounded-full px-4 py-2 border-black focus:outline-none">
+                    @error('password')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="text-center">
+                    <button type="submit"
+                        class="botton text-white font-bold px-6 py-2 rounded-full shadow hover:bg-purple">
+                        Cadastrar
+                    </button>
+                </div>
+            </form>
+
+            @if (session()->has('success'))
+                <div class="text-green-600 text-sm text-center mt-2">
+                    {{ session('success') }}
+                </div>
+            @endif
+        </div>
     </div>
-    <div class="cadastro">
-        Cadastre-se
-    </div>
-
-    <form wire:submit.prevent="store">
-        <!-- Nome -->
-        <div class="form-group " style="color: black">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" wire:model="nome" class="form-control @error('nome') is-invalid @enderror">
-            @error('nome') <span class="error-message">{{ $message }}</span> @enderror
-        </div>
-
-        <!-- Endereço -->
-        <div class="form-group"style="color: black">
-            <label for="endereco">Endereço</label>
-            <input type="text" id="endereco" wire:model="endereco" class="form-control @error('endereco') is-invalid @enderror">
-            @error('endereco') <span class="error-message">{{ $message }}</span> @enderror
-        </div>
-
-        <!-- Telefone -->
-        <div class="form-group"style="color: black">
-            <label for="telefone">Telefone</label>
-            <input type="text" id="telefone" wire:model="telefone" class="form-control @error('telefone') is-invalid @enderror">
-            @error('telefone') <span class="error-message">{{ $message }}</span> @enderror
-        </div>
-
-        <!-- CPF -->
-        <div class="form-group"style="color: black">
-            <label for="cpf">CPF</label>
-            <input type="text" id="cpf" wire:model="cpf" class="form-control @error('cpf') is-invalid @enderror">
-            @error('cpf') <span class="error-message">{{ $message }}</span> @enderror
-        </div>
-
-        <!-- E-mail -->
-        <div class="form-group"style="color: black">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" wire:model="email" class="form-control @error('email') is-invalid @enderror">
-            @error('email') <span class="error-message">{{ $message }}</span> @enderror
-        </div>
-
-        <!-- Senha -->
-        <div class="form-group" style="color: black">
-            <label for="password">Senha</label>
-            <input type="password" id="password" wire:model="password" class="form-control @error('password') is-invalid @enderror">
-            @error('password') <span class="error-message">{{ $message }}</span> @enderror
-        </div>
-
-        <!-- Botão de Enviar -->
-        <div class="form-group text-center">
-            <button type="submit" class="btn">Cadastrar</button>
-        </div>
-    </form>
-
-    <!-- Mensagem de sucesso após cadastro -->
-    @if (session()->has('success'))
-        <div class="message">
-            {{ session('success') }}
-        </div>
-    @endif
 </div>

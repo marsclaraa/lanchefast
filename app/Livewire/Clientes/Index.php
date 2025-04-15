@@ -25,7 +25,9 @@ class Index extends Component
             ->orWhere('cpf', 'like', "%{$this->search}%")
             ->paginate($this->perPage);
 
-        return view('livewire.clientes.index', compact('clientes'));
+            return view('livewire.clientes.index', ['clientes' => $clientes]); 
+
+
     }
 
     public function delete($id)

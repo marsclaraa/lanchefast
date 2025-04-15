@@ -42,7 +42,7 @@ class Create extends Component
         'endereco.max' => 'O limite maxímo de caracteres foi atingido'
     ];
 
-    public function store()
+    public function create()
     {
         $this->validate();
 
